@@ -29,6 +29,10 @@ import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 @SpringBootApplication
 @LineMessageHandler
 public class EchoApplication {
+    
+    String testNoticeWon = "I think we won last time, but I'm still in beta so better ask Sigil";
+    String testNoticeMissing = "Don't look at me, I wasn't told about any encounters with this guild";
+    
     public static void main(String[] args) {
         SpringApplication.run(EchoApplication.class, args);
     }
@@ -38,8 +42,16 @@ public class EchoApplication {
         System.out.println("event: " + event);
         String messageText = event.getMessage().getText().toLowerCase();
         if (!messageText.startsWith("gw")) return null;
-        String responseText = messageText.substring(3);
-        return new TextMessage(responseText);
+        String guildName = messageText.substring(3);
+        if (guildName.equals("xclusive"))
+        {
+            return new TextMessage(testNoticeWon);
+        }
+        else
+        {
+            return new TextMessage(testNoticeMissing);
+        }
+        return null;
     }
 
     @EventMapping

@@ -36,7 +36,10 @@ public class EchoApplication {
     @EventMapping
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
         System.out.println("event: " + event);
-        return new TextMessage("Testing: " + event.getMessage().getText());
+        String messageText = event.getMessage().getText().toLowerCase();
+        if (!messageText.startsWith("gw")) return null;
+        String responseText = messageText.substring(3);
+        return new TextMessage(responseText);
     }
 
     @EventMapping

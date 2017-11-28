@@ -51,7 +51,6 @@ public class EchoApplication {
         {
             return new TextMessage(testNoticeMissing);
         }
-        return null;
     }
 
     @EventMapping
